@@ -1,3 +1,3 @@
 package com.stanfit.common
 
-internal actual fun platform(): String = "iOS"
+actual fun platform(): String = "iOS"
