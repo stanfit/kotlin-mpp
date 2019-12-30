@@ -80,19 +80,22 @@ kotlin {
 }
 
 // ios task
-task packForXcode {
-    def buildType = project.findProperty("kotlin.build.type") ?: "DEBUG"
-    def target = project.findProperty("kotlin.target") ?: "ios"
-    def framework = kotlin.targets."$target".compilations.main.target.binaries.findFramework("", buildType)
+task packForXcode(type: Sync) {
+    // Build Configuration
+    def mode = project.findProperty("XCODE_CONFIGURATION")?.toUpperCase() ?: 'DEBUG'
+    inputs.property("mode", mode)
+    // Output Framework Directory
+    def targetDir = new File(buildDir, "xcode-frameworks")
+    // Output Framework
+    def framework = kotlin.targets.ios.compilations.main.target.binaries.findFramework("", mode)
 
     dependsOn framework.linkTask
-
+    from({ framework.outputDirectory })
+    into(targetDir)
     doLast {
-        copy {
-            from framework.outputFile.parent
-            into framework.outputFile.parentFile
-            include 'data.framework/**'
-            include 'data.framework.dSYM'
+        new File(targetDir, 'gradlew').with {
+            text = "#!/bin/bash\nexport 'JAVA_HOME=${System.getProperty("java.home")}'\ncd '${rootProject.rootDir}'\n./gradlew \$@\n"
+            setExecutable(true)
         }
     }
 }
