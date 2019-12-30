@@ -15,6 +15,8 @@
 		5567AC9023B9D52800382C6B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5567AC8E23B9D52800382C6B /* LaunchScreen.storyboard */; };
 		5567AC9B23B9D52900382C6B /* iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5567AC9A23B9D52900382C6B /* iosTests.swift */; };
 		5567ACA623B9D52900382C6B /* iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5567ACA523B9D52900382C6B /* iosUITests.swift */; };
+		5567ACB623B9EDEF00382C6B /* common.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5567ACB523B9EDEF00382C6B /* common.framework */; };
+		5567ACB723B9EDEF00382C6B /* common.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5567ACB523B9EDEF00382C6B /* common.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +36,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		5567ACB823B9EDEF00382C6B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				5567ACB723B9EDEF00382C6B /* common.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		5567AC8023B9D52700382C6B /* ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5567AC8323B9D52700382C6B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +65,7 @@
 		5567ACA123B9D52900382C6B /* iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iosUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5567ACA523B9D52900382C6B /* iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosUITests.swift; sourceTree = "<group>"; };
 		5567ACA723B9D52900382C6B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5567ACB523B9EDEF00382C6B /* common.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = common.framework; path = "../common/build/xcode-frameworks/common.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5567ACB623B9EDEF00382C6B /* common.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +101,7 @@
 				5567AC9923B9D52900382C6B /* iosTests */,
 				5567ACA423B9D52900382C6B /* iosUITests */,
 				5567AC8123B9D52700382C6B /* Products */,
+				5567ACB423B9EDEE00382C6B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -136,6 +155,14 @@
 			path = iosUITests;
 			sourceTree = "<group>";
 		};
+		5567ACB423B9EDEE00382C6B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5567ACB523B9EDEF00382C6B /* common.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -143,9 +170,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5567ACAA23B9D52900382C6B /* Build configuration list for PBXNativeTarget "ios" */;
 			buildPhases = (
+				5567ACB323B9D62700382C6B /* Compile Kotlin Native Sources */,
 				5567AC7C23B9D52700382C6B /* Sources */,
 				5567AC7D23B9D52700382C6B /* Frameworks */,
 				5567AC7E23B9D52700382C6B /* Resources */,
+				5567ACB823B9EDEF00382C6B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -262,6 +291,27 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5567ACB323B9D62700382C6B /* Compile Kotlin Native Sources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Compile Kotlin Native Sources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd $SRCROOT/../common/build/xcode-frameworks/\n./gradlew :common:packForXCode -PXCODE_CONFIGURATION=${CONFIGURATION}\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		5567AC7C23B9D52700382C6B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -350,8 +400,10 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "$SRCROOT/../common/build/xcode-frameworks";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -367,6 +419,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LIBRARY_SEARCH_PATHS = "";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -410,8 +463,10 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "$SRCROOT/../common/build/xcode-frameworks";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -421,6 +476,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LIBRARY_SEARCH_PATHS = "";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
