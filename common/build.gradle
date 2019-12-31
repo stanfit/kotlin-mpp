@@ -94,7 +94,10 @@ task packForXcode(type: Sync) {
     into(targetDir)
     doLast {
         new File(targetDir, 'gradlew').with {
-            text = "#!/bin/bash\nexport 'JAVA_HOME=${System.getProperty("java.home")}'\ncd '${rootProject.rootDir}'\n./gradlew \$@\n"
+            text = "#!/bin/bash\n" +
+                    "export 'JAVA_HOME=${System.getProperty("java.home")}'\n" +
+                    "cd '${rootProject.rootDir}'\n" +
+                    "./gradlew \$@\n"
             setExecutable(true)
         }
     }
